@@ -1,0 +1,69 @@
+﻿<Window x:Class="OrderManager.App.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Авторизация" 
+        Height="600" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        Background="Transparent"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <!-- Добавлено для перетаскивания окна -->
+
+    <Grid>
+        <!-- Задний фон (градиент) -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#0D1B2A" Offset="0.0"/>
+                <GradientStop Color="#1B263B" Offset="0.5"/>
+                <GradientStop Color="#415A77" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button x:Name="Btn" Content="Выход" Style="{StaticResource GlassButton}" Click="Btn_Click"  Margin="632,22,25,533"/>
+        <!-- "Стеклянная" карточка -->
+        <Border Height="480" CornerRadius="20" Background="#1AFFFFFF" BorderThickness="1.5" Margin="25,60,25,60">
+            <!-- Светящаяся рамка -->
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#66AADD" Offset="0"/>
+                    <GradientStop Color="#11AADD" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Effect>
+                <DropShadowEffect Color="#4A90E2" BlurRadius="30" ShadowDepth="0" Opacity="0.4"/>
+            </Border.Effect>
+
+            <StackPanel Margin="30" VerticalAlignment="Center">
+
+                <!-- Логотип (Круг с иконкой) -->
+                <Border Width="80" Height="80" CornerRadius="40" BorderBrush="#4A90E2" BorderThickness="1.5" Margin="0,0,0,40">
+                    <TextBlock Text="☕︎" FontSize="36" Foreground="#4A90E2" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="Логин"  Margin="0,0,0,15" Height="42"/>
+                    <TextBox x:Name="TxtEmail" 
+          Style="{StaticResource GlassTextBox}"
+         
+          Margin="0,0,0,15" Width="620"/>
+                </StackPanel>
+              
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="Пароль"  Margin="0,0,0,15" Height="40"/>
+                    <PasswordBox x:Name="TxtPassword" 
+              Style="{StaticResource GlassPasswordBox}"
+            
+              Margin="0,0,0,20" Width="620"/>
+                </StackPanel>
+          
+               
+                <TextBlock x:Name="TxtError" Foreground="#E53E3E" FontSize="12" TextAlignment="Center" Margin="0,0,0,10" Visibility="Collapsed"/>
+
+                <!-- Кнопка -->
+                <Button x:Name="BtnLogin" Content="Войти" Style="{StaticResource GlassButton}" Click="BtnLogin_Click"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

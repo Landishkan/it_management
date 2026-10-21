@@ -1,0 +1,458 @@
+﻿<Application x:Class="OrderManager.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:OrderManager.App"
+             StartupUri="Views/LoginWindow.xaml">
+    <Application.Resources>
+        <!-- Стиль для TextBox (Email) -->
+        <Style x:Key="GlassTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#153050"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <!-- Иконка (используем символ) -->
+                                <TextBlock Text="👤" Foreground="#8AA2C0" FontSize="16" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <ScrollViewer Grid.Column="1" x:Name="PART_ContentHost" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <!-- Стиль для PasswordBox -->
+        <Style x:Key="GlassPasswordBox" TargetType="PasswordBox">
+            <Setter Property="Background" Value="#153050"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="🔒" Foreground="#8AA2C0" FontSize="16" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <ScrollViewer Grid.Column="1" x:Name="PART_ContentHost" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для кнопки -->
+        <Style x:Key="GlassButton" TargetType="Button">
+            <Setter Property="Background" Value="#0056B3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#004494"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Базовые цвета для переиспользования -->
+        <SolidColorBrush x:Key="GlassBackground" Color="#153050"/>
+        <SolidColorBrush x:Key="GlassBorder" Color="#4A90E2"/>
+        <SolidColorBrush x:Key="GlassHover" Color="#004494"/>
+        <SolidColorBrush x:Key="GlassTextt" Color="White"/>
+        <SolidColorBrush x:Key="GlassPopupBackground" Color="#0D1B2A"/>
+
+
+        <!-- ========================================== -->
+        <!-- ГЛОБАЛЬНЫЙ СТИЛЬ TEXTBOX                   -->
+        <!-- ========================================== -->
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource GlassBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource GlassTextt}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource GlassTextt}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="4" x:Name="border">
+                            <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource GlassBorder}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ========================================== -->
+        <!-- ГЛОБАЛЬНЫЙ СТИЛЬ BUTTON                    -->
+        <!-- ========================================== -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#0056B3"/>
+            <Setter Property="Foreground" Value="{StaticResource GlassTextt}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource GlassHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#003377"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ========================================== -->
+        <!-- ГЛОБАЛЬНЫЙ СТИЛЬ CHECKBOX                  -->
+        <!-- ========================================== -->
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#A0AEC0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="CheckBoxBorder" Width="18" Height="18" 
+                            Background="{StaticResource GlassBackground}" 
+                            BorderBrush="#4A90E2" BorderThickness="1" CornerRadius="3"
+                            VerticalAlignment="Center">
+                                <Path x:Name="CheckMark" Fill="{StaticResource GlassTextt}" 
+                              Data="M 3 8 L 7 12 L 14 4 L 12 2 L 7 8 L 5 6 Z" 
+                              Visibility="Collapsed" Stretch="Uniform" Margin="2"/>
+                            </Border>
+                            <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="CheckBoxBorder" Property="Background" Value="#0056B3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ========================================== -->
+        <!-- ГЛОБАЛЬНЫЙ СТИЛЬ COMBOBOX                  -->
+        <!-- ========================================== -->
+        <!-- Стиль для элементов выпадающего списка -->
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="{StaticResource GlassTextt}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="ItemBorder" Background="{TemplateBinding Background}">
+                            <ContentPresenter Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource GlassHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource GlassBorder}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Сам ComboBox -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource GlassBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource GlassTextt}"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <!-- Кнопка и поле -->
+                            <ToggleButton x:Name="ToggleButton" Background="{TemplateBinding Background}" 
+                                  BorderThickness="0" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                            <Path Data="M 0 0 L 4 4 L 8 0 Z" Fill="#A0AEC0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" 
+                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                      ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                      Margin="10,0,30,0" VerticalAlignment="Center"/>
+
+                            <!-- Выпадающий список -->
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                                <Border x:Name="DropDownBorder" Background="{StaticResource GlassPopupBackground}" 
+                                BorderBrush="{StaticResource GlassBorder}" BorderThickness="1" 
+                                MinWidth="{TemplateBinding ActualWidth}" MaxHeight="150" CornerRadius="4" Margin="0,2,0,0">
+                                    <ScrollViewer>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- ========================================== -->
+        <!-- СТИЛИ ДЛЯ МЕНЕДЖЕРА И РАЗРАБОТЧИКА         -->
+        <!-- ========================================== -->
+        <!-- Палитра профессионального интерфейса -->
+        <SolidColorBrush x:Key="MainBg" Color="#0F172A"/>
+        <SolidColorBrush x:Key="CardBg" Color="#1E293B"/>
+        <SolidColorBrush x:Key="AccentBlue" Color="#3B82F6"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#334155"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#F8FAFC"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#94A3B8"/>
+
+        <!-- Обновленная карточка: убираем градиентную рамку и сильную тень -->
+        <Style x:Key="ModernCard" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBg}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        </Style>
+
+        <!-- Список: добавляем индикатор выбора вместо заливки всего блока -->
+        <Style x:Key="ModernListBox" TargetType="ListBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="ItemBorder" Background="Transparent" Padding="15,12" BorderThickness="0,0,0,1" BorderBrush="{StaticResource BorderBrush}">
+                                        <Grid>
+                                            <Rectangle x:Name="SelectionIndicator" Fill="{StaticResource AccentBlue}" HorizontalAlignment="Left" Width="3" Margin="-15,0,0,0" Visibility="Collapsed"/>
+                                            <ContentPresenter/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ItemBorder" Property="Background" Value="#2D3748"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="ItemBorder" Property="Background" Value="#334155"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Фон для всех внутренних окон -->
+        <!-- Более глубокий и спокойный фон -->
+        <LinearGradientBrush x:Key="WindowBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0F172A" Offset="0.0"/>
+            <!-- Темный иссиня-черный -->
+            <GradientStop Color="#1E293B" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <!-- Акцентный цвет (заменяем неон на чистый голубой или индиго) -->
+        <SolidColorBrush x:Key="AccentColor" Color="#3B82F6"/>
+        <!-- Карточка (панели, блоки) -->
+        <Style x:Key="GlassCard" TargetType="Border">
+            <Setter Property="Background" Value="#0FFFFFFF"/>
+            <!-- Очень легкая прозрачность -->
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <!-- Вместо градиента — тонкая белая кайма с низкой прозрачностью -->
+            <Setter Property="BorderBrush" Value="#1AFFFFFF"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <!-- Тень делаем темной и очень мягкой, а не светящейся -->
+                    <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="2" Opacity="0.2"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Заголовок секции -->
+        <Style x:Key="GlassHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+
+        <!-- Подзаголовок / мета-информация -->
+        <Style x:Key="GlassMeta" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#8AA2C0"/>
+        </Style>
+
+        <!-- Обычный текст -->
+        <Style x:Key="GlassText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#CCD6E0"/>
+        </Style>
+
+        <!-- ========================================== -->
+        <!-- СТИЛЬ LISTBOX (списки заказов и задач)      -->
+        <!-- ========================================== -->
+        <Style x:Key="GlassListBox" TargetType="ListBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="#CCD6E0"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="ItemBorder" 
+                                        Background="{TemplateBinding Background}" 
+                                        Padding="14,12"
+                                        BorderBrush="#1A4A90E2" 
+                                        BorderThickness="0,0,0,1"
+                                        CornerRadius="6"
+                                        Margin="0,0,0,4">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ItemBorder" Property="Background" Value="#12FFFFFF"/>
+                                        </Trigger>
+                                        <!-- В триггеры ListBoxItem -->
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="ItemBorder" Property="Background" Value="#1A3B82F6"/>
+                                            <!-- Легкий акцентный фон -->
+                                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+                                            <Setter TargetName="ItemBorder" Property="BorderThickness" Value="2,0,0,0"/>
+                                            <!-- Полоска слева -->
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ========================================== -->
+        <!-- СТИЛЬ КНОПКИ-ДЕЙСТВИЯ (зелёная)            -->
+        <!-- ========================================== -->
+        <Style x:Key="GlassActionButton" TargetType="Button">
+            <Setter Property="Background" Value="#417dc4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#246abc"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ========================================== -->
+        <!-- СТИЛЬ КНОПКИ-НЕЙТРАЛЬНОЙ (серая)           -->
+        <!-- ========================================== -->
+        <Style x:Key="GlassNeutralButton" TargetType="Button">
+            <Setter Property="Background" Value="#3A4A5A"/>
+            <Setter Property="Foreground" Value="#CCD6E0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#4A5A6A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+
+</Application>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разработка ПО на заказ</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<div class="bg-glow" style="top: 0; right: 0;"></div>
+    <!-- Хедер -->
+    <header class="site-header">
+        <div class="logo">DevOrder</div>
+        <div class="burger">
+            <span></span><span></span><span></span>
+        </div>
+        <nav>
+            <a href="index.html" class="active">Главная</a>
+            <a href="index.html#services">Услуги</a>
+            <a href="index.html#how">Как работаем</a>
+            <a href="index.html#contact">Контакты</a>
+            <a href="login.html">Войти</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+       <h1 data-aos="fade-up">Разработка <span style="color: var(--blue-accent)">ПО</span> на заказ</h1>
+       <p data-aos="fade-up" data-aos-delay="200">Создаём сайты, мобильные приложения и АИС для бизнеса. От идеи до готового продукта с отслеживанием каждого этапа.</p>
+        <a href="register.html" class="btn btn-primary">Оформить заказ</a>
+    </section>
+
+    <!-- Услуги -->
+    <section id="services" style="padding: 40px 20px 60px;">
+        <h2 style="text-align:center;color:var(--text-white);font-size:28px;margin-bottom:32px;">Наши услуги</h2>
+        <div class="cards-grid">
+           <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+               <div class="icon-wrapper">
+        <i data-lucide="globe"></i> <!-- Веб-сайты -->
+    </div>
+                <div class="card-title">Веб-сайты</div>
+                <div class="card-desc">Лендинги, корпоративные порталы, интернет-магазины с админ-панелью.</div>
+            </div>
+            <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-wrapper">
+        <i data-lucide="smartphone"></i> <!-- Мобильные приложения -->
+    </div>
+                <div class="card-title">Мобильные приложения</div>
+                <div class="card-desc">Нативные приложения для iOS и Android, кроссплатформенные решения.</div>
+            </div>
+           <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+               <div class="icon-wrapper">
+        <i data-lucide="monitor-dot"></i> <!-- АИС -->
+    </div>
+                <div class="card-title">Десктопные АИС</div>
+                <div class="card-desc">Автоматизация бизнес-процессов, CRM, системы учёта и отчётности.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как работаем -->
+    <section id="how" style="padding: 40px 20px 60px;">
+        <h2 style="text-align:center;color:var(--text-white);font-size:28px;margin-bottom:32px;">Как мы работаем</h2>
+        <div class="process-grid">
+    <!-- Шаг 1 -->
+    <div class="step-card" data-aos="fade-right" data-aos-delay="70">
+        <div class="step-number">01</div>
+        <h3>Оформление заказа</h3>
+        <p>Вы описываете задачу через личный кабинет на сайте.</p>
+    </div>
+
+    <!-- Шаг 2 -->
+   <div class="step-card" data-aos="fade-right" data-aos-delay="80">
+        <div class="step-number">02</div>
+        <h3>Анализ и оценка</h3>
+        <p>Менеджер изучает требования и формирует план работ.</p>
+    </div>
+
+    <!-- Шаг 3 -->
+  <div class="step-card" data-aos="fade-right" data-aos-delay="90">
+        <div class="step-number">03</div>
+        <h3>Разработка</h3>
+        <p>Команда программистов выполняет задачи поэтапно.</p>
+    </div>
+
+    <!-- Шаг 4 -->
+   <div class="step-card" data-aos="fade-right" data-aos-delay="100">
+        <div class="step-number">04</div>
+        <h3>Сдача и поддержка</h3>
+        <p>Готовый продукт передаётся вам с поддержкой.</p>
+    </div>
+</div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" style="padding: 40px 20px 80px; text-align:center;">
+        <h2 style="color:var(--text-white);font-size:28px;margin-bottom:16px;">Контакты</h2>
+        <p style="color:var(--text-muted);margin-bottom:24px;">Свяжитесь с нами для обсуждения вашего проекта</p>
+        <div class="glass-card" style="display:inline-block;text-align:left;min-width:280px;">
+            <p style="color:var(--text-main);">📧 order@devorder.ru</p>
+            <p style="color:var(--text-main);">📞 +7 (999) 123-45-67</p>
+            <p style="color:var(--text-main);">📍 г. Москва, ул. Программистов, 42</p>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // Скорость анимации (мс)
+    once: true,    // Анимация срабатывает только один раз при скролле
+    offset: 100    // Задержка начала анимации относительно края экрана
+  });
+</script>
+</body>
+</html>

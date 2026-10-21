@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали заказа | DevOrder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo">DevOrder</div>
+        <div class="burger">
+            <span></span><span></span><span></span>
+        </div>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="dashboard.html">Мои заказы</a>
+            <a href="create-order.html">Создать заказ</a>
+            <a href="#" onclick="logout();return false;">Выйти</a>
+        </nav>
+    </header>
+
+    <div style="max-width:800px;margin:40px auto;padding:0 20px;" id="detailContainer">
+        <!-- Заполняется через JS -->
+      
+
+    </div>
+
+
+    <script src="app.js"></script>
+    <!-- Модальное окно проблемы -->
+<div id="reportModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;">
+    <div class="glass-card" style="width:90%;max-width:450px;">
+        <h3 style="color:var(--text-white);margin-bottom:12px;">Сообщить о проблеме</h3>
+        <textarea id="reportText" placeholder="Опишите проблему..." style="width:100%;min-height:100px;"></textarea>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px;">
+            <button onclick="closeReport()" class="btn btn-ghost btn-sm">Отмена</button>
+            <button onclick="sendReport()" class="btn btn-primary btn-sm">Отправить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function closeReport() {
+        document.getElementById('reportModal').style.display = 'none';
+        document.getElementById('reportText').value = '';
+    }
+
+    async function sendReport() {
+        var text = document.getElementById('reportText').value.trim();
+        if (!text) { alert('Введите текст сообщения'); return; }
+
+        var orderId = new URLSearchParams(window.location.search).get('id');
+
+        try {
+            // 1. Отправляем ответ клиента в MessagesController базы PostgreSQL
+            await api('POST', '/orders/' + orderId + '/messages', {
+                text: text,
+                direction: 'ClientToManager'
+            });
+
+            // 2. Меняем статус заказа обратно (например, на 'InProgress' или создаем статус проверки, но давай вернем в 'InProgress' для менеджера)
+            // Менеджер увидит этот статус в своем WPF-приложении
+            // Внутри функции sendReport() в order-details.html
+        
+            await api('PUT', '/orders/' + orderId + '/status', { status: 'Ready' });
+
+            closeReport();
+            alert('Ваш ответ успешно отправлен менеджеру! Проект возвращен в работу.');
+            location.reload(); // Перезапускаем страницу для обновления статуса на экране
+        } catch (e) {
+            alert('Ошибка отправки: ' + e.message);
+        }
+    }
+</script>
+</body>
+</html>

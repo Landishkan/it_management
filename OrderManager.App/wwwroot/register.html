@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | DevOrder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+
+    <div class="glass-card auth-card">
+        <h2>Регистрация</h2>
+        <p class="subtitle">Создайте аккаунт для оформления заказов</p>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="regName">Имя</label>
+                <input type="text" id="regName" placeholder="Ваше имя">
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Email</label>
+                <input type="email" id="regEmail" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Пароль</label>
+                <input type="password" id="regPassword" placeholder="Придумайте пароль">
+            </div>
+
+            <div class="form-error" id="regError"></div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">Зарегистрироваться</button>
+        </form>
+
+        <p class="form-footer">
+            Уже есть аккаунт? <a href="login.html">Войти</a>
+        </p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

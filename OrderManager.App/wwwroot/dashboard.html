@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет | DevOrder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo">DevOrder</div>
+        <div class="burger">
+            <span></span><span></span><span></span>
+        </div>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="dashboard.html" class="active">Мои заказы</a>
+            <a href="create-order.html">Создать заказ</a>
+            <a href="#" onclick="logout();return false;">Выйти</a>
+        </nav>
+    </header>
+
+    <div class="dashboard">
+        <h2>Личный кабинет</h2>
+        <p class="subtitle">Добро пожаловать, <span id="userName" style="color:var(--text-white);font-weight:600;"></span></p>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+            <span style="color:var(--text-muted);">Ваши заказы</span>
+            <a href="create-order.html" class="btn btn-green">+ Новый заказ</a>
+        </div>
+
+        <div id="ordersContainer" class="orders-list">
+            <!-- Заполняется через JS -->
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

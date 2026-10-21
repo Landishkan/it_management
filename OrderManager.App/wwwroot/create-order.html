@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать заказ | DevOrder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo">DevOrder</div>
+        <div class="burger">
+            <span></span><span></span><span></span>
+        </div>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="dashboard.html">Мои заказы</a>
+            <a href="create-order.html" class="active">Создать заказ</a>
+            <a href="#" onclick="logout();return false;">Выйти</a>
+        </nav>
+    </header>
+
+    <div style="max-width:600px;margin:40px auto;padding:0 20px;">
+        <h2 style="color:var(--text-white);margin-bottom:4px;">Новый заказ</h2>
+        <p style="color:var(--text-muted);margin-bottom:20px;">Заполните форму — менеджер обработает заявку</p>
+
+        <div class="glass-card">
+            <form id="createOrderForm">
+                <div class="form-group">
+                    <label for="orderTitle">Название заказа</label>
+                    <input type="text" id="orderTitle" placeholder="Например: Разработка сайта-визитки">
+                </div>
+                <div class="form-group">
+                    <label for="orderType">Тип услуги</label>
+                    <select id="orderType">
+                        <option value="Веб-сайт">Веб-сайт</option>
+                        <option value="Мобильное приложение">Мобильное приложение</option>
+                        <option value="Десктопное приложение">Десктопное приложение (АИС)</option>
+                        <option value="Лендинг">Лендинг</option>
+                        <option value="Доработка ПО">Доработка существующего ПО</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="orderDesc">Описание требований</label>
+                    <textarea id="orderDesc" placeholder="Опишите, что требуется разработать, какие функции должны быть..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="orderDeadline">Желаемый срок (необязательно)</label>
+                    <input type="date" id="orderDeadline">
+                </div>
+
+                <div class="form-error" id="orderError"></div>
+
+                <button type="submit" class="btn btn-primary" style="width:100%;margin-top:12px;">Отправить заказ</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
